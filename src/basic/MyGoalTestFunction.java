@@ -29,6 +29,8 @@ public class MyGoalTestFunction implements siris.pacman.graph.GoalTestFunction {
 		ji = javaInt;
 	}
 	
+	
+	
 	@Override
 	public boolean testGoal(Node n) {
 		ji.swap(n.id());

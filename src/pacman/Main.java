@@ -15,18 +15,18 @@ public class Main {
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws IOException, InterruptedException {
-		//JavaInterface test = new JavaInterface(true);
+		//JavaInterface test = new JavaInterface(true, true);
 		//test.startRenderer(800, 600);
 		MyLevel.renderLevel(new File("src/Maps/level2.txt"));	
 		
 		
-		//GoalTestFunction gtf = new GoalTestFunction(test);
-		//JavaGraphWrapper.drawGraph(Level.getTileNodes().getFirst(), test);
+		//MyGoalTestFunction gtf = new MyGoalTestFunction(test);
+		//JavaGraphWrapper.drawGraph(MyLevel.getTileNodes().getFirst(), test);
 	
-		//Thread.sleep(20000);
+		//Thread.sleep(10000);
 			
 		MyGraphSearch gs = new MyGraphSearch();
-		//gs.search(Level.getTileNodes().getFirst(), gtf);
+		//gs.search(MyLevel.getTileNodes().getFirst(), gtf);
 		
 		BasicPacman.startPacman(new MyPacmanAI(), MyLevel.getTileNodes().getFirst(), gs, true);
 		

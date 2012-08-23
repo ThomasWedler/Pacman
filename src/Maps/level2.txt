@@ -24,4 +24,4 @@ X----X--X--X--X--X--X----X
 I    I     I  I     I    I
 I    I     I  I     I    I
 I    I     I  I     I    I
-X----X-----X  X-----X--P-X
+X----X-----X  XPG---X----X

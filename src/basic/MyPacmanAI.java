@@ -3,7 +3,7 @@ package basic;
 import siris.pacman.graph.EntityNode;
 import siris.pacman.graph.MovingEntityNode;
 
-public class MyPacmanAI implements siris.pacman.PacmanAI{
+public class MyPacmanAI implements siris.pacman.PacmanAI {
 
 	@Override
 	public void onSimulationStep(float deltaT) {
