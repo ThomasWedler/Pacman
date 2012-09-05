@@ -7,20 +7,25 @@ public class MyPacmanAI implements siris.pacman.PacmanAI {
 
 	@Override
 	public void onSimulationStep(float deltaT) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onDecisionRequired(MovingEntityNode entityToDecideFor) {
-		// TODO Auto-generated method stub
-		
+		/*MyMovingEntityNode n = (MyMovingEntityNode) entityToDecideFor;
+		MyPacman pacman = new MyPacman();
+		pacman.setPosition(4, 4);
+		for(MyTileNode node : MyLevel.nodes) {
+			if(node.position().x() == 4 && node.position().y() == 4) {
+				pacman.connectTo(node);
+			}
+		}
+		new AStar((MyEntityNode)n, (MyEntityNode)pacman);*/
 	}
 
 	@Override
 	public void onCollision(EntityNode e1, EntityNode e2) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

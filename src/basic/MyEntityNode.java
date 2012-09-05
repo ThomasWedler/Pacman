@@ -31,11 +31,13 @@ public class MyEntityNode extends MyNode implements siris.pacman.graph.EntityNod
 
 	@Override
 	public void setTileNode(TileNode n) {
+		this.connectTo((MyNode) n);
 		this.tileNode = n;
 	}
 
 	@Override
 	public void disconnect() {
+		this.disconnect();
 		this.tileNode = null;
 	}
 

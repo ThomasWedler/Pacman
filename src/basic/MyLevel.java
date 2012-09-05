@@ -82,7 +82,6 @@ public class MyLevel {
 		}
 		
 		br.close();
-		
 		return row;
 	}
 

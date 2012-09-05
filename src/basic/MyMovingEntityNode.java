@@ -6,7 +6,7 @@ public class MyMovingEntityNode extends MyEntityNode implements siris.pacman.gra
 	public int cmdY = 0;
 	public int dmdX = 0;
 	public int dmdY = 0;
-	public float speed = 0f;
+	public float speed = 1f;
 
 	@Override
 	public int getCurrentMovementDirectionX() {
