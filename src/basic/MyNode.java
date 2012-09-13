@@ -18,10 +18,6 @@ public class MyNode implements siris.pacman.graph.Node {
 		if (!n.neighbors.contains(this))
 			n.neighbors.add(this);
 	}
-	
-	//public void disconnect() {
-		//neighbors = new LinkedList<MyNode>();
-	//}
 
 	@Override
 	public UUID id() {

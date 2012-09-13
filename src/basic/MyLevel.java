@@ -12,14 +12,16 @@ public class MyLevel {
 
 	static LinkedList<MyTileNode> nodes = new LinkedList<MyTileNode>();
 
-	public MyLevel() {
+	public MyLevel(String filename) throws IOException {
+		File file = new File(filename);
+		renderLevel(file);
 	}
 
 	public static LinkedList<MyTileNode> getTileNodes() {
 		return nodes;
 	}
 
-	public static void renderLevel(File file) throws IOException {
+	public void renderLevel(File file) throws IOException {
 		int col = 0;
 		int row = countRows(file, -1);
 		
@@ -42,7 +44,7 @@ public class MyLevel {
 		br.close();
 	}
 
-	public static void createTile(String s, int row, int col) {
+	public void createTile(String s, int row, int col) {
 		MyTileNode n = new MyTileNode();
 		n.setPosition(new TilePosition(col, row));
 		nodes.add(n);
@@ -73,7 +75,7 @@ public class MyLevel {
 		}
 	}
 
-	public static int countRows(File file, int row) throws IOException {
+	public int countRows(File file, int row) throws IOException {
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
 		

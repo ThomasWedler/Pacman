@@ -24,14 +24,14 @@ public class Main {
 	
 	public static void start() throws IOException {
 		MyGraphSearch gs = new MyGraphSearch();
-		MyLevel.renderLevel(new File("src/Maps/testlevel.txt"));
+		new MyLevel("src/Maps/testlevel.txt");
 		BasicPacman.startPacman(new MyPacmanAI(), MyLevel.getTileNodes().getFirst(), gs, true);
 	}
 	
 	public static void testSearch() throws InterruptedException, IOException {
 		JavaInterface test = new JavaInterface(true, true);
 		test.startRenderer(800, 600);
-		MyLevel.renderLevel(new File("src/Maps/testlevel.txt"));
+		new MyLevel("src/Maps/testlevel.txt");
 		MyGraphSearch gs = new MyGraphSearch();
 		//MyGoalTestFunction gtf = new MyGoalTestFunction(test);
 		JavaGraphWrapper.drawGraph(MyLevel.getTileNodes().getFirst(), test);
