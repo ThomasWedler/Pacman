@@ -4,7 +4,7 @@ import siris.pacman.util.TilePosition;
 
 public class MyTileNode extends MyNode implements siris.pacman.graph.TileNode {
 	
-	public TilePosition position;
+	private TilePosition position;
 	
 	@Override
 	public TilePosition position() {
@@ -13,6 +13,24 @@ public class MyTileNode extends MyNode implements siris.pacman.graph.TileNode {
 	
 	public void setPosition(TilePosition p) {
 		this.position = p;
+	}
+	
+	public String getDifferenceBetweenPositions(MyTileNode n) {
+		int diffX = this.position().x() - n.position().x();
+		int diffY = this.position().y() - n.position().y();
+		if (diffX != 0) {
+			if (diffX == 1)
+				return "left";
+			if (diffX == -1)
+				return "right";
+		}
+		if (diffY != 0) {
+			if (diffY == 1)
+				return "down";
+			if (diffY == -1)
+				return "up";
+		}
+		return "none";
 	}
 
 }

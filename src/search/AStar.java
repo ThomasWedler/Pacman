@@ -8,73 +8,86 @@ import java.util.PriorityQueue;
 
 import basic.MyEntityNode;
 import basic.MyNode;
+import basic.MyTileNode;
 
 public class AStar {
 
-	private HashSet<MyEntityNode> closedSet = new HashSet<MyEntityNode>();
-	private PriorityQueue<MyEntityNode> openSet = new PriorityQueue<MyEntityNode>(10, new NodeComparator());
-	private HashMap<MyEntityNode, MyEntityNode> cameFrom = new HashMap<MyEntityNode, MyEntityNode>();
-	private LinkedList<MyEntityNode> result = new LinkedList<MyEntityNode>();
+	private HashSet<MyTileNode> closedSet = new HashSet<MyTileNode>();
+	private PriorityQueue<MyTileNode> openSet = new PriorityQueue<MyTileNode>(10, new NodeComparator());
+	private HashMap<MyTileNode, MyTileNode> cameFrom = new HashMap<MyTileNode, MyTileNode>();
+	private LinkedList<MyTileNode> result = new LinkedList<MyTileNode>();
 	private float tentativeG = 0;
 
-	public AStar(MyEntityNode start, MyEntityNode goal) {
-		start.g = 0;
-		start.f = start.g + h(start, goal);
+	public AStar(MyEntityNode e1, MyEntityNode e2) {
+		MyTileNode start = (MyTileNode) e1.getTileNode();
+		MyTileNode goal = (MyTileNode) e2.getTileNode();
+		start.setG(0);
+		start.setF(start.getG() + h(start, goal));
 		openSet.add(start);
-		start(start, goal);
+		result = compute(start, goal);
+	}
+	
+	public LinkedList<MyTileNode> getResult() {
+		return result;
 	}
 
-	private LinkedList<MyEntityNode> start(MyEntityNode start, MyEntityNode goal) {
+	private LinkedList<MyTileNode> compute(MyTileNode start, MyTileNode goal) {
 		while (!openSet.isEmpty()) {
-			MyEntityNode current = openSet.poll();
+			MyTileNode current = openSet.poll();
 
 			if (current.equals(goal))
 				return reconstructPath(cameFrom, goal);
 
 			closedSet.add(current);
-			for (MyNode n : current.neighbors) {
-				MyEntityNode node = (MyEntityNode) n;
-				if (!closedSet.contains(node)) {
-					tentativeG = current.g + 1;
-				}
-				if (!openSet.contains(node) || tentativeG < node.g) {
-					if (!openSet.contains(node)) {
-						openSet.add(node);
+			for (MyNode n : current.getNeighbors()) {
+				if (n instanceof MyTileNode) {
+					MyTileNode neighbour = (MyTileNode) n;
+					if (!closedSet.contains(neighbour)) {
+						tentativeG = current.getG() + 1f;
 					}
-					cameFrom.put(node, current);
-					node.g = tentativeG;
-					node.f = node.g + h(node, goal);
+					if (!openSet.contains(neighbour) || tentativeG < neighbour.getG()) {
+						if (!openSet.contains(neighbour)) {
+							openSet.add(neighbour);
+						}
+						cameFrom.put(neighbour, current);
+						neighbour.setG(tentativeG);
+						neighbour.setF(neighbour.getG() + h(neighbour, goal));
+					}
 				}
 			}
 		}
 		return null;
 	}
 
-	private LinkedList<MyEntityNode> reconstructPath(HashMap<MyEntityNode, MyEntityNode> cameFrom, MyEntityNode node) {
+	private LinkedList<MyTileNode> reconstructPath(HashMap<MyTileNode, MyTileNode> cameFrom, MyTileNode node) {
+		//System.out.println(node.toString());
+		//System.out.println(cameFrom.keySet().size());
 		if (cameFrom.containsKey(node)) {
-			LinkedList<MyEntityNode> path = reconstructPath(cameFrom, cameFrom.get(node));
+			//System.out.println("test");
+			LinkedList<MyTileNode> path = reconstructPath(cameFrom, cameFrom.get(node));
 			path.add(node);
 			return path;
+		} else {
+			result.add(node);
+			return result;
 		}
-		result.add(node);
-		return result;
 	}
 
-	private float h(MyEntityNode n1, MyEntityNode n2) {
+	private float h(MyTileNode n1, MyTileNode n2) {
 		float a, b, c;
 		float diffX, diffY;
-		diffX = n1.x - n2.x;
-		diffY = n1.y - n2.y;
+		diffX = n1.position().x() - n2.position().x();
+		diffY = n1.position().y() - n2.position().y();
 		a = Math.abs(diffX);
 		b = Math.abs(diffY);
-		c = (float) Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+		c = (float) (Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)));
 		return c;
 	}
 
-	private class NodeComparator implements Comparator<MyEntityNode> {
-		public int compare(MyEntityNode n1, MyEntityNode n2) {
-			float f1 = n1.f;
-			float f2 = n2.f;
+	private class NodeComparator implements Comparator<MyTileNode> {
+		public int compare(MyTileNode n1, MyTileNode n2) {
+			float f1 = n1.getF();
+			float f2 = n2.getF();
 			if (f1 < f2)
 				return -1;
 			if (f1 > f2)

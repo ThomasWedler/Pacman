@@ -10,15 +10,35 @@ import siris.pacman.util.TilePosition;
 
 public class MyLevel {
 
-	static LinkedList<MyTileNode> nodes = new LinkedList<MyTileNode>();
-
+	private LinkedList<MyTileNode> tileNodes = new LinkedList<MyTileNode>();
+	private LinkedList<MyGhost> ghosts = new LinkedList<MyGhost>();
+	private LinkedList<MyPowerUp> powerUps = new LinkedList<MyPowerUp>();
+	private LinkedList<MyGoodie> goodies = new LinkedList<MyGoodie>();
+	private MyPacman pacman;
+	
 	public MyLevel(String filename) throws IOException {
 		File file = new File(filename);
 		renderLevel(file);
 	}
 
-	public static LinkedList<MyTileNode> getTileNodes() {
-		return nodes;
+	public LinkedList<MyTileNode> getTileNodes() {
+		return tileNodes;
+	}
+
+	public LinkedList<MyGhost> getGhosts() {
+		return ghosts;
+	}
+
+	public LinkedList<MyPowerUp> getPowerUps() {
+		return powerUps;
+	}
+
+	public LinkedList<MyGoodie> getGoodies() {
+		return goodies;
+	}
+
+	public MyPacman getPacman() {
+		return pacman;
 	}
 
 	public void renderLevel(File file) throws IOException {
@@ -47,11 +67,11 @@ public class MyLevel {
 	public void createTile(String s, int row, int col) {
 		MyTileNode n = new MyTileNode();
 		n.setPosition(new TilePosition(col, row));
-		nodes.add(n);
+		tileNodes.add(n);
 
 		TilePosition posleft = new TilePosition(col - 1, row);
 		TilePosition posup = new TilePosition(col, row + 1);
-		for (MyTileNode node : nodes) {
+		for (MyTileNode node : tileNodes) {
 			if (node.position().x() == posleft.x()
 					&& node.position().y() == posleft.y()) {
 				n.connectTo(node);
@@ -62,27 +82,47 @@ public class MyLevel {
 			}
 		}
 
+		if (s.equals("P")) {
+			MyPacman pacman = new MyPacman();
+			pacman.setTileNode(n);
+			pacman.setPosition(col, row);
+			if (this.pacman == null)
+				this.pacman = pacman;
+			else
+				System.out.println("There can be only one Pacman!");
+		}
+		
 		if (s.equals("G")) {
 			MyGhost ghost = new MyGhost();
 			ghost.setTileNode(n);
 			ghost.setPosition(col, row);
+			if (this.ghosts.size() <= 3)
+				ghosts.add(ghost);
+			else
+				System.out.println("There can be only four ghosts!");
 		}
 
-		if (s.equals("P")) {
-			MyPacman man = new MyPacman();
-			man.setTileNode(n);
-			man.setPosition(col, row);
-		}
+		/* if (s.equals("-") || s.equals("X") || s.equals("I")) {
+			MyGoodie goodie = new MyGoodie();
+			goodie.setTileNode(n);
+			goodie.setPosition(col, row);
+			goodies.add(goodie);
+		}*/
+		
+		/*if (s.equals("U")) {
+			MyPowerUp powerUp = new MyPowerUp();
+			powerUp.setTileNode(n);
+			powerUp.setPosition(col, row);
+			powerUps.add(powerUp);
+		}*/
 	}
 
 	public int countRows(File file, int row) throws IOException {
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
-		
 		while ((br.readLine()) != null) {
 			row++;
 		}
-		
 		br.close();
 		return row;
 	}

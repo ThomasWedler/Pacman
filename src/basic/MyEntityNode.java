@@ -1,12 +1,14 @@
 package basic;
 
+import java.util.LinkedList;
+
 import siris.pacman.graph.TileNode;
 
 public class MyEntityNode extends MyNode implements siris.pacman.graph.EntityNode {
 	
-	public float x;
-	public float y;
-	public TileNode tileNode;
+	private float x;
+	private float y;
+	private TileNode tileNode;
 
 	@Override
 	public void setPosition(float x, float y) {
@@ -31,16 +33,19 @@ public class MyEntityNode extends MyNode implements siris.pacman.graph.EntityNod
 
 	@Override
 	public void setTileNode(TileNode n) {
-		//System.out.println("setTileNode: x = " + n.position().x());
-		//System.out.println("setTileNode: y = " + n.position().y());
+		this.disconnect();
 		this.connectTo((MyNode) n);
 		this.tileNode = n;
 	}
 
 	@Override
 	public void disconnect() {
-		//System.out.println("disconnect");
-		this.tileNode = null;
+		@SuppressWarnings("unchecked")
+		LinkedList<MyNode> list = (LinkedList<MyNode>) this.getNeighbors().clone();
+		for (MyNode n : list) {
+			this.getNeighbors().remove(n);
+			n.getNeighbors().remove(this);
+		}
 	}
 
 }

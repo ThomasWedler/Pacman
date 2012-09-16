@@ -4,10 +4,9 @@ import siris.pacman.graph.Node;
 
 public class MyGoalTestFunction implements siris.pacman.graph.GoalTestFunction {
 
-	public String goal = "basic.MyPacman" ;
+	private String goal = "basic.MyPacman" ;
 
-	public MyGoalTestFunction(Node n) {
-		testGoal(n);
+	public MyGoalTestFunction() {
 	}
 	
 	@Override

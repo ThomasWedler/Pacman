@@ -22,6 +22,6 @@ I    I  I        I  I    I
 I    I  I        I  I    I
 X----X--X--X--X--X--X----X
 I    I     I  I     I    I
+I    I     I  I     G    I
 I    I     I  I     I    I
-I    I     I  I     I    I
-X----X-----X  XPG---X----X
+X----X-----X  XP--U-X----X

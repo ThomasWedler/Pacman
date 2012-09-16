@@ -4,12 +4,32 @@ import java.util.UUID;
 
 public class MyNode implements siris.pacman.graph.Node {
 
-	public UUID id = UUID.randomUUID();
-	public LinkedList<MyNode> neighbors = new LinkedList<MyNode>();
-	public float g = 0;
-	public float f = 0;
+	private UUID id = UUID.randomUUID();
+	private LinkedList<MyNode> neighbors = new LinkedList<MyNode>();
+	private float g = 0;
+	private float f = 0;
 	
 	public MyNode() {
+	}
+
+	public float getG() {
+		return g;
+	}
+
+	public void setG(float g) {
+		this.g = g;
+	}
+
+	public float getF() {
+		return f;
+	}
+
+	public void setF(float f) {
+		this.f = f;
+	}
+
+	public LinkedList<MyNode> getNeighbors() {
+		return neighbors;
 	}
 
 	public void connectTo(MyNode n) {

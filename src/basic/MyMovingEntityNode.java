@@ -2,11 +2,12 @@ package basic;
 
 public class MyMovingEntityNode extends MyEntityNode implements siris.pacman.graph.MovingEntityNode {
 
-	public int cmdX = 0;
-	public int cmdY = 0;
-	public int dmdX = 0;
-	public int dmdY = 0;
-	public float speed = 1f;
+	private int cmdX = 0;
+	private int cmdY = 0;
+	private int dmdX = 0;
+	private int dmdY = 0;
+	private float speed = 1f;
+	private String direction = "none";
 
 	@Override
 	public int getCurrentMovementDirectionX() {
@@ -32,15 +33,47 @@ public class MyMovingEntityNode extends MyEntityNode implements siris.pacman.gra
 	public float getSpeed() {
 		return speed;
 	}
+	
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+	
+	public String getDirection() {
+		return direction;
+	}
 
 	@Override
 	public void setCurrentMovementDirection(int x, int y) {
+		if (x > 0) {
+			direction = "right";
+		}
+		if (x < 0) {
+			direction = "left";
+		}
+		if (y > 0) {
+			direction = "up";
+		}
+		if (y < 0) {
+			direction = "down";
+		}
 		cmdX = x;
 		cmdY = y;
 	}
 
 	@Override
 	public void setDesiredMovementDirection(int x, int y) {
+		if (x > 0) {
+			direction = "right";
+		}
+		if (x < 0) {
+			direction = "left";
+		}
+		if (y > 0) {
+			direction = "up";
+		}
+		if (y < 0) {
+			direction = "down";
+		}
 		dmdX = x;
 		dmdY = y;
 	}

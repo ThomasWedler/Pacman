@@ -1,34 +1,93 @@
 package basic;
 
+import java.util.LinkedList;
+
+import pacman.Game;
+import search.AStar;
 import siris.pacman.graph.EntityNode;
 import siris.pacman.graph.MovingEntityNode;
 
 public class MyPacmanAI implements siris.pacman.PacmanAI {
+	
+	private String type = "Random";
+	private float powerUpTime = 0;
 
 	@Override
 	public void onSimulationStep(float deltaT) {
-
+		if (Game.pacman.isPoweredUp()) {
+			powerUpTime += deltaT;
+			Game.pacman.setSpeed(2f);
+		} else {
+			Game.pacman.setSpeed(1f);
+		}
+		if (powerUpTime > 100000) {
+			powerUpTime = 0;
+			Game.pacman.setPoweredUp(false);
+			Game.pacman.setSpeed(1f);
+		}
 	}
 
 	@Override
 	public void onDecisionRequired(MovingEntityNode entityToDecideFor) {
-		/*
-		 * MyMovingEntityNode n = (MyMovingEntityNode) entityToDecideFor;
-		 * MyPacman pacman = new MyPacman(); pacman.setPosition(4, 4);
-		 * for(MyTileNode node : MyLevel.nodes) { if(node.position().x() == 4 &&
-		 * node.position().y() == 4) { pacman.connectTo(node); } } new
-		 * AStar((MyEntityNode)n, (MyEntityNode)pacman);
-		 */
+		if (type.equals("Random")) {
+			if (entityToDecideFor instanceof MyGhost) {
+				if (((MyGhost) entityToDecideFor).seesPacman()) {
+					System.out.println("seen");
+					//useAStar(entityToDecideFor);
+				} else
+					randomDirection(entityToDecideFor);
+			}
+		}
+		if (type.equals("AStar")) {
+			useAStar(entityToDecideFor);
+		}
 	}
 
 	@Override
 	public void onCollision(EntityNode e1, EntityNode e2) {
-		if (e1.getClass().getName().equals("basic.MyPacman") || e2.getClass().getName().equals("basic.MyPacman")) {
-			if (e1.getClass().getName().equals("basic.MyGhost") || e2.getClass().getName().equals("basic.MyGhost")) {
+		if (e1.equals(Game.pacman) || e2.equals(Game.pacman)) {
+			if (e1 instanceof MyGhost || e2 instanceof MyGhost) {
 				System.out.println("Loser!");
 				System.exit(0);
 			}
+			if (e1 instanceof MyGoodie || e2 instanceof MyGoodie) {
+				Game.score += 100;
+			}
+			if (e1 instanceof MyPowerUp || e2 instanceof MyPowerUp) {
+				Game.pacman.setPoweredUp(true);
+			}
 		}
+	}
+	
+	public void randomDirection(MovingEntityNode e) {
+		double random = Math.random();
+		if (random <= 0.25) {
+			e.setDesiredMovementDirection(100, 0);
+		}
+		if (random > 0.25 && random <= 0.5) {
+			e.setDesiredMovementDirection(0, 100);
+		}
+		if (random > 0.5 && random <= 0.75) {
+			e.setDesiredMovementDirection(-100, 0);
+		}
+		if (random > 0.75) {
+			e.setDesiredMovementDirection(0, -100);
+		}
+	}
+	
+	public void useAStar(MovingEntityNode entityToDecideFor) {
+		MyEntityNode n = (MyEntityNode) entityToDecideFor;
+		LinkedList<MyTileNode> path = new AStar(n, Game.pacman).getResult();	
+		MyTileNode actual = (MyTileNode) n.getTileNode();
+		String direction = actual.getDifferenceBetweenPositions(path.getLast());
+		if (direction.equals("left"))
+			entityToDecideFor.setDesiredMovementDirection(-100, 0);
+		if (direction.equals("right"))
+			entityToDecideFor.setDesiredMovementDirection(100, 0);
+		if (direction.equals("up"))
+			entityToDecideFor.setDesiredMovementDirection(0, 100);
+		if (direction.equals("down"))
+			entityToDecideFor.setDesiredMovementDirection(0, -100);
 	}
 
 }
