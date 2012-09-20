@@ -42,9 +42,10 @@ public class AStar {
 			for (MyNode n : current.getNeighbors()) {
 				if (n instanceof MyTileNode) {
 					MyTileNode neighbour = (MyTileNode) n;
-					if (!closedSet.contains(neighbour)) {
-						tentativeG = current.getG() + 1f;
+					if (closedSet.contains(neighbour)) {
+						continue;
 					}
+					tentativeG = current.getG() + 1f;
 					if (!openSet.contains(neighbour) || tentativeG < neighbour.getG()) {
 						if (!openSet.contains(neighbour)) {
 							openSet.add(neighbour);
@@ -60,10 +61,7 @@ public class AStar {
 	}
 
 	private LinkedList<MyTileNode> reconstructPath(HashMap<MyTileNode, MyTileNode> cameFrom, MyTileNode node) {
-		//System.out.println(node.toString());
-		//System.out.println(cameFrom.keySet().size());
 		if (cameFrom.containsKey(node)) {
-			//System.out.println("test");
 			LinkedList<MyTileNode> path = reconstructPath(cameFrom, cameFrom.get(node));
 			path.add(node);
 			return path;

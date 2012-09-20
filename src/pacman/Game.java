@@ -11,6 +11,15 @@ import basic.MyPacman;
 import basic.MyPacmanAI;
 
 public class Game {
+	
+	// Martin:
+	// goodies und powerups
+	// sleep am anfang
+	// desired und current movement direction
+	
+	// ToDos:
+	// AStar aufruf
+	// see / hear variablen
 
 	public static MyLevel level;
 	public static int score = 0;

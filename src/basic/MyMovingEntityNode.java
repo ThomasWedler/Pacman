@@ -62,7 +62,7 @@ public class MyMovingEntityNode extends MyEntityNode implements siris.pacman.gra
 
 	@Override
 	public void setDesiredMovementDirection(int x, int y) {
-		if (x > 0) {
+		/*if (x > 0) {
 			direction = "right";
 		}
 		if (x < 0) {
@@ -73,7 +73,7 @@ public class MyMovingEntityNode extends MyEntityNode implements siris.pacman.gra
 		}
 		if (y < 0) {
 			direction = "down";
-		}
+		}*/
 		dmdX = x;
 		dmdY = y;
 	}

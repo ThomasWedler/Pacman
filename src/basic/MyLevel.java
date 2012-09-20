@@ -102,7 +102,7 @@ public class MyLevel {
 				System.out.println("There can be only four ghosts!");
 		}
 
-		/* if (s.equals("-") || s.equals("X") || s.equals("I")) {
+		/*if (s.equals("-") || s.equals("X") || s.equals("I")) {
 			MyGoodie goodie = new MyGoodie();
 			goodie.setTileNode(n);
 			goodie.setPosition(col, row);

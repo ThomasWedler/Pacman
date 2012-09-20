@@ -9,7 +9,7 @@ import siris.pacman.graph.MovingEntityNode;
 
 public class MyPacmanAI implements siris.pacman.PacmanAI {
 	
-	private String type = "Random";
+	private String type = "AStar";
 	private float powerUpTime = 0;
 
 	@Override
@@ -20,7 +20,7 @@ public class MyPacmanAI implements siris.pacman.PacmanAI {
 		} else {
 			Game.pacman.setSpeed(1f);
 		}
-		if (powerUpTime > 100000) {
+		if (powerUpTime > 10000) {
 			powerUpTime = 0;
 			Game.pacman.setPoweredUp(false);
 			Game.pacman.setSpeed(1f);
@@ -52,6 +52,10 @@ public class MyPacmanAI implements siris.pacman.PacmanAI {
 			}
 			if (e1 instanceof MyGoodie || e2 instanceof MyGoodie) {
 				Game.score += 100;
+				if (Game.level.getGoodies().size() == 0) {
+					System.out.println("Winner!");
+					System.exit(0);
+				}
 			}
 			if (e1 instanceof MyPowerUp || e2 instanceof MyPowerUp) {
 				Game.pacman.setPoweredUp(true);
@@ -79,15 +83,18 @@ public class MyPacmanAI implements siris.pacman.PacmanAI {
 		MyEntityNode n = (MyEntityNode) entityToDecideFor;
 		LinkedList<MyTileNode> path = new AStar(n, Game.pacman).getResult();	
 		MyTileNode actual = (MyTileNode) n.getTileNode();
-		String direction = actual.getDifferenceBetweenPositions(path.getLast());
-		if (direction.equals("left"))
-			entityToDecideFor.setDesiredMovementDirection(-100, 0);
-		if (direction.equals("right"))
-			entityToDecideFor.setDesiredMovementDirection(100, 0);
-		if (direction.equals("up"))
-			entityToDecideFor.setDesiredMovementDirection(0, 100);
-		if (direction.equals("down"))
-			entityToDecideFor.setDesiredMovementDirection(0, -100);
+		if (path.size() > 1) {
+			String direction = actual.getDifferenceBetweenPositions(path.get(1));
+			System.out.println(direction);
+			if (direction.equals("left"))
+				entityToDecideFor.setDesiredMovementDirection(-100, 0);
+			if (direction.equals("right"))
+				entityToDecideFor.setDesiredMovementDirection(100, 0);
+			if (direction.equals("up"))
+				entityToDecideFor.setDesiredMovementDirection(0, 100);
+			if (direction.equals("down"))
+				entityToDecideFor.setDesiredMovementDirection(0, -100);
+		}
 	}
 
 }
