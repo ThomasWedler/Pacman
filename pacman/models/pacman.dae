@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.61.0 r42614</authoring_tool>
     </contributor>
-    <created>2012-09-26T13:22:36</created>
-    <modified>2012-09-26T13:22:36</modified>
+    <created>2012-09-26T13:24:26</created>
+    <modified>2012-09-26T13:24:26</modified>
     <unit name="centimeter" meter="0.01"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -27,12 +27,9 @@
   <library_lights>
     <light id="Lamp-light" name="Lamp.001">
       <technique_common>
-        <point>
-          <color sid="color">10 10 10</color>
-          <constant_attenuation>1</constant_attenuation>
-          <linear_attenuation>0</linear_attenuation>
-          <quadratic_attenuation>0.00111109</quadratic_attenuation>
-        </point>
+        <directional>
+          <color sid="color">1 1 1</color>
+        </directional>
       </technique_common>
       <extra>
         <technique profile="blender">
@@ -57,7 +54,7 @@
           <clipsta>1.000799</clipsta>
           <compressthresh>0.04999995</compressthresh>
           <dist sid="blender_dist">30</dist>
-          <energy sid="blender_energy">10</energy>
+          <energy sid="blender_energy">1</energy>
           <falloff_type>2</falloff_type>
           <filtertype>0</filtertype>
           <flag>0</flag>
@@ -65,7 +62,7 @@
           <green>1</green>
           <halo_intensity sid="blnder_halo_intensity">1</halo_intensity>
           <horizon_brightness>1</horizon_brightness>
-          <mode>0</mode>
+          <mode>4</mode>
           <ray_samp>1</ray_samp>
           <ray_samp_method>1</ray_samp_method>
           <ray_samp_type>0</ray_samp_type>
@@ -90,7 +87,7 @@
           <sun_effect_type>0</sun_effect_type>
           <sun_intensity>1</sun_intensity>
           <sun_size>1</sun_size>
-          <type>0</type>
+          <type>1</type>
         </technique>
       </extra>
     </light>
