@@ -6,94 +6,144 @@ import pacman.Game;
 import search.AStar;
 import siris.pacman.graph.EntityNode;
 import siris.pacman.graph.MovingEntityNode;
+import siris.pacman.util.TilePosition;
 
 public class MyPacmanAI implements siris.pacman.PacmanAI {
 	
-	private String type = "AStar";
-	private float powerUpTime = 0;
-
 	@Override
 	public void onSimulationStep(float deltaT) {
-		if (Game.pacman.isPoweredUp()) {
-			powerUpTime += deltaT;
-			Game.pacman.setSpeed(2f);
-		} else {
-			Game.pacman.setSpeed(1f);
+		checkBulletTime();
+		
+		for (MyGhost ghost : Game.level.getGhosts()) {
+			if (ghost.lookForPacman())
+				ghost.setSeePacman(true);
+			if (ghost.hearForPacman())
+				ghost.setHearPacman(true);
+			if (ghost.visionForPacman(deltaT))
+				ghost.setVisionPacman(true);
+			if (ghost.feelForPacman())
+				ghost.setFeelPacman(true);
 		}
-		if (powerUpTime > 10000) {
-			powerUpTime = 0;
-			Game.pacman.setPoweredUp(false);
-			Game.pacman.setSpeed(1f);
-		}
+				
 	}
 
 	@Override
 	public void onDecisionRequired(MovingEntityNode entityToDecideFor) {
-		if (type.equals("Random")) {
-			if (entityToDecideFor instanceof MyGhost) {
-				if (((MyGhost) entityToDecideFor).seesPacman()) {
-					System.out.println("seen");
-					//useAStar(entityToDecideFor);
-				} else
-					randomDirection(entityToDecideFor);
+		boolean crossing = false;
+		String s = Game.level.getTileNodes().get(entityToDecideFor.getTileNode());
+		
+		if (s.equals("X") || s.equals("P") || s.equals("G"))
+			crossing = true;
+		
+		if (entityToDecideFor instanceof MyGhost) {
+			MyGhost ghost = (MyGhost) entityToDecideFor;
+			LinkedList<MyTileNode> aStarPath = new AStar(ghost, Game.pacman).getResult();
+			aStarPath.removeFirst();
+			if (ghost.seesPacman()) {
+				System.out.println("seen");
+				ghost.setDesiredPath(aStarPath);
+				ghost.setSeePacman(false);
+			} else if (ghost.hearsPacman()) {
+				System.out.println("heard");
+				ghost.setDesiredPath(aStarPath);
+				ghost.setHearPacman(false);
+			} else if (ghost.visionsPacman()) {
+				System.out.println("visioned");
+				ghost.setDesiredPath(aStarPath);
+				ghost.setVisionPacman(false);
+			} else if (ghost.feelsPacman()) {
+				System.out.println("fealt");
+				ghost.setDesiredPath(aStarPath);
+				ghost.setFeelPacman(false);
+			} else if (ghost.getDesiredPath().isEmpty() || crossing) {
+				randomDirection(ghost);
 			}
-		}
-		if (type.equals("AStar")) {
-			useAStar(entityToDecideFor);
+			
+			MyTileNode ghostPosition = (MyTileNode) ghost.getTileNode();
+			MyTileNode nextStep = ghost.getDesiredPath().peek();
+			if (ghost.getDesiredPath().size() > 1)
+				ghost.getDesiredPath().removeFirst();
+			
+			int x = 0;
+			int y = 0;
+			String direction = ghostPosition.getDifferenceBetweenPositions(nextStep);
+
+			if (direction.equals("right"))
+				x = 1;
+			else if (direction.equals("left"))
+				x = -1;
+			else if (direction.equals("up"))
+				y = 1;
+			else if (direction.equals("down"))
+				y = -1;
+			
+			entityToDecideFor.setDesiredMovementDirection(x, y);
 		}
 	}
 
 	@Override
 	public void onCollision(EntityNode e1, EntityNode e2) {
-		if (e1.equals(Game.pacman) || e2.equals(Game.pacman)) {
-			if (e1 instanceof MyGhost || e2 instanceof MyGhost) {
+		if (e1 instanceof MyPacman) {
+			if (e2 instanceof MyGhost) {
 				System.out.println("Loser!");
+				System.out.println("Your Score: " + Game.score);
 				System.exit(0);
 			}
-			if (e1 instanceof MyGoodie || e2 instanceof MyGoodie) {
+			if (e2 instanceof MyGoodie) {
+				Game.level.setGoodieCounter(Game.level.getGoodieCounter() - 1);
 				Game.score += 100;
-				if (Game.level.getGoodies().size() == 0) {
+				Game.pacman.setPowerLevel(Game.pacman.getPowerLevel() + Game.goodiePower);
+				if (Game.level.getGoodieCounter() == 0) {
 					System.out.println("Winner!");
+					System.out.println("Your Score: " + Game.score);
 					System.exit(0);
 				}
 			}
-			if (e1 instanceof MyPowerUp || e2 instanceof MyPowerUp) {
-				Game.pacman.setPoweredUp(true);
+		}
+	}
+	
+	public void randomDirection(MyGhost ghost) {
+		MyTileNode result = new MyTileNode();
+		int random = (int) (Math.random() * (5 - 1) + 1);
+		switch (random) {
+			case 1:	result.setPosition(new TilePosition(1, 0));
+					break;
+			case 2:	result.setPosition(new TilePosition(0, 1));
+					break;
+			case 3:	result.setPosition(new TilePosition(-1, 0));
+					break;
+			case 4: result.setPosition(new TilePosition(0, -1));
+					break;
+		}
+		ghost.getDesiredPath().clear();
+		ghost.getDesiredPath().add(result);
+	}
+	
+	public void checkBulletTime() {
+		boolean close = false;
+		MyTileNode pacmanNode = (MyTileNode) Game.pacman.getTileNode();
+		
+		for (MyNode n : pacmanNode.neighbors()) {
+			if (n instanceof MyTileNode) {
+				MyTileNode ghostNode = (MyTileNode) n;
+				for (MyGhost ghost : Game.level.getGhosts()) {
+					if (ghost.getTileNode().equals(ghostNode)) {
+						close = true;
+					}
+				}
 			}
 		}
-	}
-	
-	public void randomDirection(MovingEntityNode e) {
-		double random = Math.random();
-		if (random <= 0.25) {
-			e.setDesiredMovementDirection(100, 0);
-		}
-		if (random > 0.25 && random <= 0.5) {
-			e.setDesiredMovementDirection(0, 100);
-		}
-		if (random > 0.5 && random <= 0.75) {
-			e.setDesiredMovementDirection(-100, 0);
-		}
-		if (random > 0.75) {
-			e.setDesiredMovementDirection(0, -100);
-		}
-	}
-	
-	public void useAStar(MovingEntityNode entityToDecideFor) {
-		MyEntityNode n = (MyEntityNode) entityToDecideFor;
-		LinkedList<MyTileNode> path = new AStar(n, Game.pacman).getResult();	
-		MyTileNode actual = (MyTileNode) n.getTileNode();
-		if (path.size() > 1) {
-			String direction = actual.getDifferenceBetweenPositions(path.get(1));
-			System.out.println(direction);
-			if (direction.equals("left"))
-				entityToDecideFor.setDesiredMovementDirection(-100, 0);
-			if (direction.equals("right"))
-				entityToDecideFor.setDesiredMovementDirection(100, 0);
-			if (direction.equals("up"))
-				entityToDecideFor.setDesiredMovementDirection(0, 100);
-			if (direction.equals("down"))
-				entityToDecideFor.setDesiredMovementDirection(0, -100);
+		
+		if (close) {
+			Game.pacman.setSpeed(0.5f);
+			for (MyGhost ghost : Game.level.getGhosts()) {
+				ghost.setSpeed(0.5f);
+			}
+		} else {
+			Game.pacman.setSpeed(1f);
+			for (MyGhost ghost : Game.level.getGhosts()) {
+				ghost.setSpeed(1f);
+			}
 		}
 	}
 

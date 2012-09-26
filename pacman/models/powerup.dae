@@ -31,22 +31,22 @@
         <technique sid="common">
           <phong>
             <emission>
-              <color>0 0 0 1</color>
+              <color>1 0 0 1</color>
             </emission>
             <ambient>
-              <color>1 1 0 1</color>
+              <color>1 0 0 1</color>
             </ambient>
             <diffuse>
-              <color>0 0.100456237793 1 1</color>
+              <color>1 0 0 1</color>
             </diffuse>
             <specular>
-              <color>1 1 0 1</color>
+              <color>1 0 0 1</color>
             </specular>
             <shininess>
               <float>6</float>
             </shininess>
             <reflective>
-              <color>1 0.999899983406 0.999899983406 1</color>
+              <color>1 0 0 1</color>
             </reflective>
             <reflectivity>
               <float>0</float>

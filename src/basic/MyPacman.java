@@ -2,14 +2,14 @@ package basic;
 
 public class MyPacman extends MyMovingEntityNode implements siris.pacman.graph.Pacman{
 
-	private boolean poweredUp = false;
+	private int powerLevel = 1;
 
-	public boolean isPoweredUp() {
-		return poweredUp;
+	public int getPowerLevel() {
+		return powerLevel;
 	}
 
-	public void setPoweredUp(boolean poweredUp) {
-		this.poweredUp = poweredUp;
+	public void setPowerLevel(int powerLevel) {
+		this.powerLevel = powerLevel;
 	}
 	
 }

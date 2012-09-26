@@ -19,15 +19,15 @@ public class MyTileNode extends MyNode implements siris.pacman.graph.TileNode {
 		int diffX = this.position().x() - n.position().x();
 		int diffY = this.position().y() - n.position().y();
 		if (diffX != 0) {
-			if (diffX == 1)
+			if (diffX > 0)
 				return "left";
-			if (diffX == -1)
+			if (diffX < 0)
 				return "right";
 		}
 		if (diffY != 0) {
-			if (diffY == 1)
+			if (diffY > 0)
 				return "down";
-			if (diffY == -1)
+			if (diffY < 0)
 				return "up";
 		}
 		return "none";
