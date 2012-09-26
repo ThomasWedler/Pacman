@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.61.0 r42614</authoring_tool>
     </contributor>
-    <created>2012-09-26T13:24:26</created>
-    <modified>2012-09-26T13:24:26</modified>
+    <created>2012-09-26T13:26:04</created>
+    <modified>2012-09-26T13:26:04</modified>
     <unit name="centimeter" meter="0.01"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -28,7 +28,7 @@
     <light id="Lamp-light" name="Lamp.001">
       <technique_common>
         <directional>
-          <color sid="color">1 1 1</color>
+          <color sid="color">0.001 0.001 0.001</color>
         </directional>
       </technique_common>
       <extra>
@@ -54,7 +54,7 @@
           <clipsta>1.000799</clipsta>
           <compressthresh>0.04999995</compressthresh>
           <dist sid="blender_dist">30</dist>
-          <energy sid="blender_energy">1</energy>
+          <energy sid="blender_energy">0.000999987</energy>
           <falloff_type>2</falloff_type>
           <filtertype>0</filtertype>
           <flag>0</flag>
