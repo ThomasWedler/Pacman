@@ -28,14 +28,13 @@ public class Game {
 	public static int maximumPowerLevel = 9000;
 	
 	private String mode = "Normal";
-	private String levelname = "src/Maps/testlevel.txt";
 	private int suddenDeathCounter = 5;
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-		new Game();
+		new Game("src/Maps/testlevel.txt");
 	}
 	
-	public Game() throws IOException, InterruptedException {
+	public Game(String levelname) throws IOException, InterruptedException {
 		MyTileNode startNode = null;
 		level = new MyLevel(levelname);
 		pacman = level.getPacman();

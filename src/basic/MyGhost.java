@@ -1,19 +1,15 @@
 package basic;
 
 import java.util.LinkedList;
-
 import pacman.Game;
-
 
 public class MyGhost extends MyMovingEntityNode implements siris.pacman.graph.Ghost {
 
-	private LinkedList<MyTileNode> desiredPath = new LinkedList<MyTileNode>(); 
+	private LinkedList<MyTileNode> desiredPath = new LinkedList<MyTileNode>();
 	private int number = 0;
-	private boolean seePacman = false;
-	private boolean hearPacman = false;
-	private boolean visionPacman = false;
-	private boolean feelPacman = false;
-	private int range = 3;
+	private boolean sensePacman = false;
+	private int hearRange = 1;
+	private int visionRange = 2;
 	private float timer = 0;
 
 	public void setNr(int x) {
@@ -24,8 +20,13 @@ public class MyGhost extends MyMovingEntityNode implements siris.pacman.graph.Gh
 	public int getNr() {
 		return number;
 	}
-	
-	public boolean lookForPacman() {
+
+	public void sensePacman(float elapsed) {
+		if (lookForPacman() || hearForPacman() || visionForPacman(elapsed) || feelForPacman())
+			sensePacman = true;
+	}
+
+	private boolean lookForPacman() {
 		MyTileNode position = (MyTileNode) this.getTileNode();
 		boolean result = lookOut(position);
 		return result;
@@ -50,13 +51,22 @@ public class MyGhost extends MyMovingEntityNode implements siris.pacman.graph.Gh
 		}
 		return false;
 	}
-	
-	public boolean hearForPacman() {
-		// to do
+
+	private boolean hearForPacman() {
+		int xMax = this.getTileNode().position().x() + hearRange;
+		int xMin = this.getTileNode().position().x() - hearRange;
+		int yMax = this.getTileNode().position().y() + hearRange;
+		int yMin = this.getTileNode().position().y() - hearRange;
+		for (MyTileNode node : Game.level.getTileNodes().keySet()) {
+			if (node.position().x() <= xMax && node.position().x() >= xMin && node.position().y() <= yMax && node.position().y() >= yMin) {
+				if (Game.pacman.getTileNode().position().equals(node.position()))
+					return true;
+			}
+		}
 		return false;
 	}
-	
-	public boolean visionForPacman(double elapsed) {
+
+	private boolean visionForPacman(float elapsed) {
 		timer += elapsed;
 		if (timer > 10) {
 			timer = 0;
@@ -70,25 +80,24 @@ public class MyGhost extends MyMovingEntityNode implements siris.pacman.graph.Gh
 				} else
 					counter++;
 			}
-			int xMax = randomNode.position().x() + range;
-			int xMin = randomNode.position().x() - range;
-			int yMax = randomNode.position().y() + range;
-			int yMin = randomNode.position().y() - range;
+			int xMax = randomNode.position().x() + visionRange;
+			int xMin = randomNode.position().x() - visionRange;
+			int yMax = randomNode.position().y() + visionRange;
+			int yMin = randomNode.position().y() - visionRange;
 			for (MyTileNode node : Game.level.getTileNodes().keySet()) {
 				if (node.position().x() <= xMax && node.position().x() >= xMin && node.position().y() <= yMax && node.position().y() >= yMin) {
-					if (Game.pacman.getTileNode().position().equals(node.position())) {
+					if (Game.pacman.getTileNode().position().equals(node.position()))
 						return true;
-					}
 				}
 			}
-			return false;	
+			return false;
 		} else
 			return false;
 	}
-	
+
 	private boolean power = true;
-	
-	public boolean feelForPacman() {
+
+	private boolean feelForPacman() {
 		if (Game.pacman.getPowerLevel() > Game.maximumPowerLevel) {
 			if (power) {
 				System.out.println("Over 9000!!!");
@@ -99,44 +108,20 @@ public class MyGhost extends MyMovingEntityNode implements siris.pacman.graph.Gh
 		return false;
 	}
 
-	public boolean seesPacman() {
-		return seePacman;
-	}
-
-	public void setSeePacman(boolean seePacman) {
-		this.seePacman = seePacman;
-	}
-
-	public boolean hearsPacman() {
-		return hearPacman;
-	}
-
-	public void setHearPacman(boolean hearPacman) {
-		this.hearPacman = hearPacman;
-	}
-
-	public boolean visionsPacman() {
-		return visionPacman;
-	}
-
-	public void setVisionPacman(boolean visionPacman) {
-		this.visionPacman = visionPacman;
-	}
-
-	public boolean feelsPacman() {
-		return feelPacman;
-	}
-
-	public void setFeelPacman(boolean feelPacman) {
-		this.feelPacman = feelPacman;
-	}
-
 	public LinkedList<MyTileNode> getDesiredPath() {
 		return desiredPath;
 	}
 
 	public void setDesiredPath(LinkedList<MyTileNode> desiredPath) {
 		this.desiredPath = desiredPath;
+	}
+
+	public boolean sensesPacman() {
+		return sensePacman;
+	}
+
+	public void setSensePacman(boolean sensePacman) {
+		this.sensePacman = sensePacman;
 	}
 
 }
