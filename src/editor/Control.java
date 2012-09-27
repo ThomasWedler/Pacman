@@ -33,6 +33,7 @@ public class Control {
 	}
 
 	public Control() {
+		model.setFixedDND(view.dnd);
 		setDragAndDrop();
 		registerActionListeners();
 	}
@@ -46,9 +47,6 @@ public class Control {
 					model.setActualIcon(label.getIcon());
 					label.getTransferHandler().exportAsDrag(label, e, TransferHandler.COPY);
 				}
-				
-				// darf nicht bei anderen aus view.dnd passieren
-				
 			});
 		}
 
