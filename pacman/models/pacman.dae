@@ -5,20 +5,21 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.61.0 r42614</authoring_tool>
     </contributor>
-    <created>2012-09-29T15:41:41</created>
-    <modified>2012-09-29T15:41:41</modified>
+    <created>2012-09-29T15:57:31</created>
+    <modified>2012-09-29T15:57:31</modified>
     <unit name="centimeter" meter="0.01"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_lights>
     <light id="Point-light" name="Point">
       <technique_common>
-        <point>
-          <color sid="color">0.5 0 0</color>
+        <spot>
+          <color sid="color">10 0 0</color>
           <constant_attenuation>1</constant_attenuation>
           <linear_attenuation>0</linear_attenuation>
-          <quadratic_attenuation>0.001599967</quadratic_attenuation>
-        </point>
+          <quadratic_attenuation>0.224188</quadratic_attenuation>
+          <falloff_angle sid="fall_off_angle">20</falloff_angle>
+        </spot>
       </technique_common>
       <extra>
         <technique profile="blender">
@@ -42,8 +43,8 @@
           <clipend>40</clipend>
           <clipsta>0.5</clipsta>
           <compressthresh>0.04999995</compressthresh>
-          <dist sid="blender_dist">25</dist>
-          <energy sid="blender_energy">0.5</energy>
+          <dist sid="blender_dist">2.111999</dist>
+          <energy sid="blender_energy">10</energy>
           <falloff_type>2</falloff_type>
           <filtertype>0</filtertype>
           <flag>0</flag>
@@ -51,7 +52,7 @@
           <green>0</green>
           <halo_intensity sid="blnder_halo_intensity">1</halo_intensity>
           <horizon_brightness>1</horizon_brightness>
-          <mode>1</mode>
+          <mode>4097</mode>
           <ray_samp>1</ray_samp>
           <ray_samp_method>1</ray_samp_method>
           <ray_samp_type>0</ray_samp_type>
@@ -69,14 +70,14 @@
           <skyblendfac>1</skyblendfac>
           <skyblendtype>1</skyblendtype>
           <soft>3</soft>
-          <spotblend>0.15</spotblend>
-          <spotsize>45</spotsize>
+          <spotblend>0</spotblend>
+          <spotsize>20</spotsize>
           <spread>1</spread>
           <sun_brightness>1</sun_brightness>
           <sun_effect_type>0</sun_effect_type>
           <sun_intensity>1</sun_intensity>
           <sun_size>1</sun_size>
-          <type>0</type>
+          <type>2</type>
         </technique>
       </extra>
     </light>
@@ -310,10 +311,10 @@
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="Point" type="NODE">
-        <translate sid="location">-0.001346968 -0.1335174 0.5737228</translate>
+        <translate sid="location">-0.001346968 -2.446948 0.5462117</translate>
         <rotate sid="rotationZ">0 0 1 0</rotate>
         <rotate sid="rotationY">0 1 0 0</rotate>
-        <rotate sid="rotationX">1 0 0 0</rotate>
+        <rotate sid="rotationX">1 0 0 88.74866</rotate>
         <scale sid="scale">1 1 1</scale>
         <instance_light url="#Point-light"/>
       </node>
