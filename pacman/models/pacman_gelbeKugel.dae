@@ -12,7 +12,7 @@
   </asset>
   <library_images>
     <image id="ghost_texture1_jpeg" name="ghost_texture1_jpeg">
-      <init_from>/Users/Kristof/Documents/workspace/Pacman/pacman/models/pacman_texture.jpeg</init_from>
+      <init_from>pacman/models/pacman_texture.jpeg</init_from>
     </image>
   </library_images>
   <library_effects>
