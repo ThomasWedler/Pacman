@@ -5,8 +5,8 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.61.0 r42614</authoring_tool>
     </contributor>
-    <created>2012-09-29T15:57:31</created>
-    <modified>2012-09-29T15:57:31</modified>
+    <created>2012-09-29T16:09:02</created>
+    <modified>2012-09-29T16:09:02</modified>
     <unit name="centimeter" meter="0.01"/>
     <up_axis>Z_UP</up_axis>
   </asset>
@@ -17,8 +17,8 @@
           <color sid="color">10 0 0</color>
           <constant_attenuation>1</constant_attenuation>
           <linear_attenuation>0</linear_attenuation>
-          <quadratic_attenuation>0.224188</quadratic_attenuation>
-          <falloff_angle sid="fall_off_angle">20</falloff_angle>
+          <quadratic_attenuation>1.777778</quadratic_attenuation>
+          <falloff_angle sid="fall_off_angle">70.00003</falloff_angle>
         </spot>
       </technique_common>
       <extra>
@@ -43,16 +43,16 @@
           <clipend>40</clipend>
           <clipsta>0.5</clipsta>
           <compressthresh>0.04999995</compressthresh>
-          <dist sid="blender_dist">2.111999</dist>
+          <dist sid="blender_dist">0.75</dist>
           <energy sid="blender_energy">10</energy>
-          <falloff_type>2</falloff_type>
+          <falloff_type>0</falloff_type>
           <filtertype>0</filtertype>
           <flag>0</flag>
           <gamma sid="blender_gamma">1</gamma>
           <green>0</green>
           <halo_intensity sid="blnder_halo_intensity">1</halo_intensity>
           <horizon_brightness>1</horizon_brightness>
-          <mode>4097</mode>
+          <mode>4096</mode>
           <ray_samp>1</ray_samp>
           <ray_samp_method>1</ray_samp_method>
           <ray_samp_type>0</ray_samp_type>
@@ -71,7 +71,7 @@
           <skyblendtype>1</skyblendtype>
           <soft>3</soft>
           <spotblend>0</spotblend>
-          <spotsize>20</spotsize>
+          <spotsize>70.00003</spotsize>
           <spread>1</spread>
           <sun_brightness>1</sun_brightness>
           <sun_effect_type>0</sun_effect_type>
@@ -311,7 +311,7 @@
   <library_visual_scenes>
     <visual_scene id="Scene" name="Scene">
       <node id="Point" type="NODE">
-        <translate sid="location">-0.001346968 -2.446948 0.5462117</translate>
+        <translate sid="location">-0.001346968 -0.6536136 0.5462117</translate>
         <rotate sid="rotationZ">0 0 1 0</rotate>
         <rotate sid="rotationY">0 1 0 0</rotate>
         <rotate sid="rotationX">1 0 0 88.74866</rotate>
