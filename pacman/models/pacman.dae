@@ -5,11 +5,22 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.61.0 r42614</authoring_tool>
     </contributor>
-    <created>2012-09-29T11:08:03</created>
-    <modified>2012-09-29T11:08:03</modified>
+    <created>2012-09-29T11:16:44</created>
+    <modified>2012-09-29T11:16:44</modified>
     <unit name="centimeter" meter="0.01"/>
     <up_axis>Z_UP</up_axis>
   </asset>
+  <library_images>
+    <image id="pacman_black_jpeg" name="pacman_black_jpeg">
+      <init_from>pacman/models/pacman_black.jpeg</init_from>
+    </image>
+    <image id="pacman_red_jpeg" name="pacman_red_jpeg">
+      <init_from>pacman/models/pacman_red.jpeg</init_from>
+    </image>
+    <image id="pacman_yellow_jpeg" name="pacman_yellow_jpeg">
+      <init_from>pacman/models/pacman_yellow.jpeg</init_from>
+    </image>
+  </library_images>
   <library_effects>
     <effect id="Color_009_-effect">
       <profile_COMMON>
