@@ -66,6 +66,16 @@
     </effect>
     <effect id="red-effect">
       <profile_COMMON>
+        <newparam sid="pacman_red_jpeg-surface">
+          <surface type="2D">
+            <init_from>pacman_red_jpeg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="pacman_red_jpeg-sampler">
+          <sampler2D>
+            <source>pacman_red_jpeg-surface</source>
+          </sampler2D>
+        </newparam>
         <technique sid="common">
           <phong>
             <emission>
@@ -75,7 +85,7 @@
               <color sid="ambient">0 0 0 1</color>
             </ambient>
             <diffuse>
-              <color sid="diffuse">0.64 0.64 0.64 1</color>
+              <texture texture="pacman_red_jpeg-sampler" texcoord="TEX0"/>
             </diffuse>
             <specular>
               <color sid="specular">0.5 0.5 0.5 1</color>
@@ -98,6 +108,16 @@
     </effect>
     <effect id="black-effect">
       <profile_COMMON>
+        <newparam sid="pacman_black_jpeg-surface">
+          <surface type="2D">
+            <init_from>pacman_black_jpeg</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="pacman_blak_jpeg-sampler">
+          <sampler2D>
+            <source>pacman_black_jpeg-surface</source>
+          </sampler2D>
+        </newparam>
         <technique sid="common">
           <phong>
             <emission>
@@ -107,7 +127,7 @@
               <color sid="ambient">0 0 0 1</color>
             </ambient>
             <diffuse>
-              <color sid="diffuse">0.64 0.64 0.64 1</color>
+              <texture texture="pacman_black_jpeg-sampler" texcoord="TEX0"/>
             </diffuse>
             <specular>
               <color sid="specular">0.5 0.5 0.5 1</color>
