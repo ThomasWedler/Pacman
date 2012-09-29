@@ -33,7 +33,6 @@ public class Control {
 	}
 
 	public Control() {
-		model.setFixedDND(view.dnd);
 		setDragAndDrop();
 		registerActionListeners();
 	}
@@ -48,6 +47,10 @@ public class Control {
 					label.getTransferHandler().exportAsDrag(label, e, TransferHandler.COPY);
 				}
 			});
+			MyDropTargetListener dtl = new MyDropTargetListener(label);
+			DropTarget dt = new DropTarget(label, dtl);
+			dt.setDefaultActions(DnDConstants.ACTION_COPY);
+			dt.setActive(true);
 		}
 
 		for (JLabel label : view.labels) {
@@ -186,9 +189,11 @@ public class Control {
 		}
 
 		public void drop(DropTargetDropEvent dtde) {
-			ImageIcon image = new ImageIcon(model.getActualIcon().toString());
-			image.setImage(image.getImage().getScaledInstance(38, 38, Image.SCALE_DEFAULT));
-			label.setIcon(image);
+			if (!view.dnd.contains(label)) {
+				ImageIcon image = new ImageIcon(model.getActualIcon().toString());
+				image.setImage(image.getImage().getScaledInstance(38, 38, Image.SCALE_DEFAULT));
+				label.setIcon(image);
+			}
 		}
 
 		public void dropActionChanged(DropTargetDragEvent dtde) {

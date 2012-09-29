@@ -31,7 +31,7 @@ public class Game {
 	private int suddenDeathCounter = 5;
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-		new Game("src/Maps/New Level.txt");
+		new Game("src/Maps/testlevel.txt");
 	}
 	
 	public Game(String levelname) throws IOException, InterruptedException {
