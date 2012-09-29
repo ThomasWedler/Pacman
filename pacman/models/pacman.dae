@@ -5,29 +5,14 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.61.0 r42614</authoring_tool>
     </contributor>
-    <created>2012-09-26T17:40:34</created>
-    <modified>2012-09-26T17:40:34</modified>
+    <created>2012-09-29T11:02:47</created>
+    <modified>2012-09-29T11:02:47</modified>
     <unit name="centimeter" meter="0.01"/>
     <up_axis>Z_UP</up_axis>
   </asset>
-  <library_images>
-    <image id="ghost_texture1_jpeg" name="ghost_texture1_jpeg">
-      <init_from>/Users/Kristof/Documents/workspace/Pacman/pacman/models/pacman_texture.jpeg</init_from>
-    </image>
-  </library_images>
   <library_effects>
-    <effect id="lambert1_1-effect">
+    <effect id="Color_009_-effect">
       <profile_COMMON>
-        <newparam sid="ghost_texture1_jpeg-surface">
-          <surface type="2D">
-            <init_from>ghost_texture1_jpeg</init_from>
-          </surface>
-        </newparam>
-        <newparam sid="ghost_texture1_jpeg-sampler">
-          <sampler2D>
-            <source>ghost_texture1_jpeg-surface</source>
-          </sampler2D>
-        </newparam>
         <technique sid="common">
           <phong>
             <emission>
@@ -37,10 +22,74 @@
               <color sid="ambient">0 0 0 1</color>
             </ambient>
             <diffuse>
-              <texture texture="ghost_texture1_jpeg-sampler" texcoord="TEX0"/>
+              <color sid="diffuse">0 0 0 1</color>
             </diffuse>
             <specular>
-              <color sid="specular">0.5 0.5 0.5 1</color>
+              <color sid="specular">0 0 0 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+    <effect id="Color_B01_-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.512 0 0 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.25 0 0 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
+    <effect id="Color_D02_-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.512 0.512 0 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.25 0.25 0 1</color>
             </specular>
             <shininess>
               <float sid="shininess">50</float>
@@ -60,8 +109,14 @@
     </effect>
   </library_effects>
   <library_materials>
-    <material id="lambert1_1-material" name="lambert1_1">
-      <instance_effect url="#lambert1_1-effect"/>
+    <material id="Color_009_-material" name="Color_009_">
+      <instance_effect url="#Color_009_-effect"/>
+    </material>
+    <material id="Color_B01_-material" name="Color_B01_">
+      <instance_effect url="#Color_B01_-effect"/>
+    </material>
+    <material id="Color_D02_-material" name="Color_D02_">
+      <instance_effect url="#Color_D02_-effect"/>
     </material>
   </library_materials>
   <library_geometries>
@@ -90,7 +145,7 @@
         <vertices id="ID28-mesh-mesh-vertices">
           <input semantic="POSITION" source="#ID28-mesh-mesh-positions"/>
         </vertices>
-        <polylist material="lambert1_11" count="22">
+        <polylist material="Color_009_1" count="22">
           <input semantic="VERTEX" source="#ID28-mesh-mesh-vertices" offset="0"/>
           <input semantic="NORMAL" source="#ID28-mesh-mesh-normals" offset="1"/>
           <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
@@ -124,7 +179,7 @@
         <vertices id="ID20-mesh-mesh-vertices">
           <input semantic="POSITION" source="#ID20-mesh-mesh-positions"/>
         </vertices>
-        <polylist material="lambert1_11" count="22">
+        <polylist material="Color_009_1" count="22">
           <input semantic="VERTEX" source="#ID20-mesh-mesh-vertices" offset="0"/>
           <input semantic="NORMAL" source="#ID20-mesh-mesh-normals" offset="1"/>
           <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
@@ -158,7 +213,7 @@
         <vertices id="ID12-mesh-mesh-vertices">
           <input semantic="POSITION" source="#ID12-mesh-mesh-positions"/>
         </vertices>
-        <polylist material="lambert1_11" count="26">
+        <polylist material="Color_B01_1" count="26">
           <input semantic="VERTEX" source="#ID12-mesh-mesh-vertices" offset="0"/>
           <input semantic="NORMAL" source="#ID12-mesh-mesh-normals" offset="1"/>
           <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
@@ -192,7 +247,7 @@
         <vertices id="ID4-mesh-mesh-vertices">
           <input semantic="POSITION" source="#ID4-mesh-mesh-positions"/>
         </vertices>
-        <polylist material="lambert1_11" count="624">
+        <polylist material="Color_D02_1" count="624">
           <input semantic="VERTEX" source="#ID4-mesh-mesh-vertices" offset="0"/>
           <input semantic="NORMAL" source="#ID4-mesh-mesh-normals" offset="1"/>
           <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
@@ -211,58 +266,58 @@
         <rotate sid="rotationX">1 0 0 0</rotate>
         <scale sid="scale">1 1 1</scale>
         <node id="Pacman_004" type="NODE">
-          <translate sid="location">-1.01572e-5 -0.003661083 0.5722423</translate>
+          <translate sid="location">-5.45368e-6 -0.003661307 0.6049175</translate>
           <rotate sid="rotationZ">0 0 1 90.00001</rotate>
           <rotate sid="rotationY">0 1 0 0</rotate>
           <rotate sid="rotationX">1 0 0 0</rotate>
-          <scale sid="scale">0.01490032 0.01490032 0.01490032</scale>
+          <scale sid="scale">0.01532947 0.01532947 0.01532947</scale>
           <instance_geometry url="#ID28-mesh-mesh">
             <bind_material>
               <technique_common>
-                <instance_material symbol="lambert1_11" target="#lambert1_1-material"/>
+                <instance_material symbol="Color_009_1" target="#Color_009_-material"/>
               </technique_common>
             </bind_material>
           </instance_geometry>
         </node>
       </node>
       <node id="Pacman_002" type="NODE">
-        <translate sid="location">-2.279e-4 -0.003650745 0.5722424</translate>
+        <translate sid="location">-2.29468e-4 -0.00365067 0.6049176</translate>
         <rotate sid="rotationZ">0 0 1 90.00001</rotate>
         <rotate sid="rotationY">0 1 0 0</rotate>
         <rotate sid="rotationX">1 0 0 0</rotate>
-        <scale sid="scale">0.01490032 0.01490032 0.01490032</scale>
+        <scale sid="scale">0.01532947 0.01532947 0.01532947</scale>
         <instance_geometry url="#ID20-mesh-mesh">
           <bind_material>
             <technique_common>
-              <instance_material symbol="lambert1_11" target="#lambert1_1-material"/>
+              <instance_material symbol="Color_009_1" target="#Color_009_-material"/>
             </technique_common>
           </bind_material>
         </instance_geometry>
       </node>
       <node id="Pacman_001" type="NODE">
-        <translate sid="location">-2.279e-4 -0.003650745 0.5722424</translate>
+        <translate sid="location">-2.29468e-4 -0.00365067 0.6049176</translate>
         <rotate sid="rotationZ">0 0 1 90.00001</rotate>
         <rotate sid="rotationY">0 1 0 0</rotate>
         <rotate sid="rotationX">1 0 0 0</rotate>
-        <scale sid="scale">0.01490032 0.01490032 0.01490032</scale>
+        <scale sid="scale">0.01532947 0.01532947 0.01532947</scale>
         <instance_geometry url="#ID12-mesh-mesh">
           <bind_material>
             <technique_common>
-              <instance_material symbol="lambert1_11" target="#lambert1_1-material"/>
+              <instance_material symbol="Color_B01_1" target="#Color_B01_-material"/>
             </technique_common>
           </bind_material>
         </instance_geometry>
       </node>
       <node id="Pacman" type="NODE">
-        <translate sid="location">-2.279e-4 -0.003650745 0.5722424</translate>
+        <translate sid="location">-2.29468e-4 -0.00365067 0.6049176</translate>
         <rotate sid="rotationZ">0 0 1 90.00001</rotate>
         <rotate sid="rotationY">0 1 0 0</rotate>
         <rotate sid="rotationX">1 0 0 0</rotate>
-        <scale sid="scale">0.01490032 0.01490032 0.01490032</scale>
+        <scale sid="scale">0.01532947 0.01532947 0.01532947</scale>
         <instance_geometry url="#ID4-mesh-mesh">
           <bind_material>
             <technique_common>
-              <instance_material symbol="lambert1_11" target="#lambert1_1-material"/>
+              <instance_material symbol="Color_D02_1" target="#Color_D02_-material"/>
             </technique_common>
           </bind_material>
         </instance_geometry>
