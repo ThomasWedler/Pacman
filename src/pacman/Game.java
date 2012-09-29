@@ -14,10 +14,8 @@ import basic.MyTileNode;
 public class Game {
 	
 	// Martin:
-	// desired und current movement direction
-	
-	// z.b. Verhalten: immer AStar zu Pacman
-	
+	// Editor: level direkt laden
+		
 	// Power-Ups wie im Original Pacman
 	// ->> Geister weg von ihm
 	
@@ -39,6 +37,10 @@ public class Game {
 		level = new MyLevel(levelname);
 		pacman = level.getPacman();
 		goodiePower = maximumPowerLevel / (level.getGoodieCounter() - suddenDeathCounter - 1);
+		for (MyTileNode n : level.getTileNodes().keySet()) {
+			startNode = n;
+			break;
+		}
 		if (mode.equals("Normal"))
 			start(startNode);
 		if (mode.equals("TestSearch"))
@@ -47,10 +49,6 @@ public class Game {
 	
 	private void start(MyTileNode startNode) {
 		MyGraphSearch gs = new MyGraphSearch();
-		for (MyTileNode n : level.getTileNodes().keySet()) {
-			startNode = n;
-			break;
-		}
 		BasicPacman.startPacman(new MyPacmanAI(), startNode, gs, true);
 	}
 	

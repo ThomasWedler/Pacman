@@ -75,21 +75,24 @@ public class Control {
 	private void registerActionListeners() {
 		view.btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				boolean written = false;
 				Object[] options = { "Yes", "No" };
 				int result = JOptionPane.showOptionDialog(null, "Would you like to save your level?", "Save", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 				if (result == JOptionPane.YES_OPTION) {
-					if (writeToFile(view.levelname.getText())) {
-						result = JOptionPane.showOptionDialog(null, "Would you like to start a new game in your level?", "New Game", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-						if (result == JOptionPane.YES_OPTION) {
-							try {
-								view.dispose();
-								new Game("src/Maps/" + view.levelname.getText() + ".txt");
-							} catch (Exception exc) {
-								exc.printStackTrace();
-							}
-						} else {
-							System.exit(0);
+					writeToFile(view.levelname.getText());
+					written = true;
+				}
+				if (written) {
+					result = JOptionPane.showOptionDialog(null, "Would you like to start a new game in your level?", "New Game", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+					if (result == JOptionPane.YES_OPTION) {
+						try {
+							view.dispose();
+							new Game("src/Maps/" + view.levelname.getText() + ".txt");
+						} catch (Exception exc) {
+							exc.printStackTrace();
 						}
+					} else {
+						System.exit(0);
 					}
 				}
 			}
@@ -137,25 +140,15 @@ public class Control {
 
 			String s = result.toString();
 			int pacmanCount = 0;
-			int ghostCount = 0;
 
 			Pattern pacman = Pattern.compile(Pattern.quote("P"));
-			Pattern ghost = Pattern.compile(Pattern.quote("G"));
 			Matcher p = pacman.matcher(s);
-			Matcher g = ghost.matcher(s);
 			while (p.find()) {
 				pacmanCount++;
-			}
-			while (g.find()) {
-				ghostCount++;
 			}
 
 			if (pacmanCount != 1) {
 				JOptionPane.showMessageDialog(null, "There has to be exactly one Pacman!", "Pacman Error", JOptionPane.ERROR_MESSAGE);
-				out.close();
-				return false;
-			} else if (ghostCount != 4) {
-				JOptionPane.showMessageDialog(null, "There have to be exactly four Ghosts!", "Ghost Error", JOptionPane.ERROR_MESSAGE);
 				out.close();
 				return false;
 			} else {

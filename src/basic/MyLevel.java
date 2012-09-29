@@ -101,10 +101,7 @@ public class MyLevel {
 			MyGhost ghost = new MyGhost();
 			ghost.setTileNode(n);
 			ghost.setPosition(col, row);
-			if (this.ghosts.size() <= 3)
-				ghosts.add(ghost);
-			else
-				System.out.println("There can be only four ghosts!");
+			ghosts.add(ghost);
 		}
 
 		if (s.equals("-") || s.equals("X") || s.equals("I")) {

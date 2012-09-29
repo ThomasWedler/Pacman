@@ -16,7 +16,6 @@ public class MyPacmanAI implements siris.pacman.PacmanAI {
 		for (MyGhost ghost : Game.level.getGhosts()) {
 			ghost.sensePacman(deltaT);
 		}
-
 	}
 
 	@Override
@@ -82,7 +81,7 @@ public class MyPacmanAI implements siris.pacman.PacmanAI {
 				System.exit(0);
 			} else if (e2 instanceof MyGoodie) {
 				Game.level.setGoodieCounter(Game.level.getGoodieCounter() - 1);
-				Game.score += 100;
+				Game.score += Game.goodiePower;
 				Game.pacman.setPowerLevel(Game.pacman.getPowerLevel() + Game.goodiePower);
 				if (Game.level.getGoodieCounter() == 0) {
 					System.out.println("Winner!");
