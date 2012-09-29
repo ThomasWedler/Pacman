@@ -5,12 +5,15 @@
       <author>Blender User</author>
       <authoring_tool>Blender 2.61.0 r42614</authoring_tool>
     </contributor>
-    <created>2012-09-29T16:45:12</created>
-    <modified>2012-09-29T16:45:12</modified>
+    <created>2012-09-29T16:51:59</created>
+    <modified>2012-09-29T16:51:59</modified>
     <unit name="centimeter" meter="0.01"/>
     <up_axis>Z_UP</up_axis>
   </asset>
   <library_images>
+    <image id="black_jpg_001" name="black_jpg_001">
+      <init_from>./red.jpeg</init_from>
+    </image>
     <image id="black_jpg" name="black_jpg">
       <init_from>./black.jpg</init_from>
     </image>
@@ -19,6 +22,48 @@
     </image>
   </library_images>
   <library_effects>
+    <effect id="phong2_001-effect">
+      <profile_COMMON>
+        <newparam sid="black_jpg_001-surface">
+          <surface type="2D">
+            <init_from>black_jpg_001</init_from>
+          </surface>
+        </newparam>
+        <newparam sid="black_jpg_001-sampler">
+          <sampler2D>
+            <source>black_jpg_001-surface</source>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="black_jpg_001-sampler" texcoord="TEX0"/>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.25 0.25 0.25 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">20</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+        <extra>
+          <technique profile="GOOGLEEARTH">
+            <double_sided>1</double_sided>
+          </technique>
+        </extra>
+      </profile_COMMON>
+      <extra><technique profile="MAX3D"><double_sided>1</double_sided></technique></extra>
+    </effect>
     <effect id="phong2-effect">
       <profile_COMMON>
         <newparam sid="black_jpg-surface">
@@ -105,6 +150,9 @@
     </effect>
   </library_effects>
   <library_materials>
+    <material id="phong2_001-material" name="phong2.001">
+      <instance_effect url="#phong2_001-effect"/>
+    </material>
     <material id="phong2-material" name="phong2">
       <instance_effect url="#phong2-effect"/>
     </material>
@@ -138,7 +186,7 @@
         <vertices id="Sphere-mesh-vertices">
           <input semantic="POSITION" source="#Sphere-mesh-positions"/>
         </vertices>
-        <polylist material="phong21" count="500">
+        <polylist material="phong2_0011" count="500">
           <input semantic="VERTEX" source="#Sphere-mesh-vertices" offset="0"/>
           <input semantic="NORMAL" source="#Sphere-mesh-normals" offset="1"/>
           <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 </vcount>
@@ -281,7 +329,7 @@
         <instance_geometry url="#Sphere-mesh">
           <bind_material>
             <technique_common>
-              <instance_material symbol="phong21" target="#phong2-material"/>
+              <instance_material symbol="phong2_0011" target="#phong2_001-material"/>
             </technique_common>
           </bind_material>
         </instance_geometry>
